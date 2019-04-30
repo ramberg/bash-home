@@ -1,0 +1,33 @@
+# .bashinc
+
+PATH=$PATH:$HOME/bin
+export PATH
+export PS1="[\[\e[32m\]\u\[\e[0m\]@\[\e[34;1m\]\h\[\e[0m\] \W]$ "
+export EDITOR=vim
+
+alias most='less -S -N -# 10'
+alias rcp='rsync -lKHpEogt --progress --stats'
+
+###############################
+# Modify History              #
+###############################
+
+# Do not put duplicate lines in the history and ignoredups and ignorespace.
+HISTCONTROL=ignoredups:ignorespace:ignoreboth #:erasedups
+
+# For setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=10000
+HISTFILESIZE=20000
+
+###############################
+# Functions                   #
+###############################
+
+function chr() {
+  [ "$1" -lt 256 ] || return 1
+  printf "\\$(printf '%03o' "$1")"
+}
+
+function ord() {
+  LC_CTYPE=C printf '%d' "'$1"
+}
